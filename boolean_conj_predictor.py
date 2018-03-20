@@ -31,7 +31,7 @@ def find_correct_hypothesis(h,training_examples,x,y,d):
     Keyword arguments:
     h - final hypothesis
     training_examples - set of examples
-    x - x is matrix, each line contains optional substitute
+    x - x is a matrix, each line contains optional substitute
     y - vector of correct tag
     d - number of variables
     return:
@@ -41,17 +41,17 @@ def find_correct_hypothesis(h,training_examples,x,y,d):
         if y[i]==0:
             continue
         instance = x[i]
-        y_gag = 1
+        y_prediction = 1
         for variable_index in range(1,len(instance) +1):
             if h[variable_index*2 -2] ==1:
-                y_gag = y_gag*instance[variable_index-1]
+                y_prediction = y_prediction*instance[variable_index-1]
             if h[variable_index*2 - 1] ==1:
                 if instance[variable_index-1] == 0:
                     setVal = 1
                 else:
                     setVal = 0
-                y_gag = y_gag*setVal
-        if y[i] == 1 and y_gag == 0:
+                y_prediction = y_prediction*setVal
+        if y[i] == 1 and y_prediction == 0:
             for index in range(d):
                 if instance[index] == 1:
                     h[2*(index+1) -1] = 0
