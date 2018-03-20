@@ -2,19 +2,24 @@ import numpy as np
 import sys
 
 def main():
+    """""
+    main function.
+    runs the program.
+    argv[1] - command line argument.
+    """""
     input_text_file = sys.argv[1]
+    # read training examples from input file
     training_examples = np.loadtxt(input_text_file)
+    # d is number of variables
     d = training_examples.size/len(training_examples) - 1
+    # x is matrix, each line contains optional substitute
     x = training_examples[:len(training_examples),:d]
-    print(x)
     y = training_examples[:len(training_examples),d:training_examples.size/len(training_examples)]
-    print (y)
     h = [ ]
-    #initialize the all negative hypothesis
+    # initialize the all negative hypothesis
     for i in range(2*d):
         h.append(1)
-    y_gag =1
-    #set values in hypothesis
+    # find the correct hypothesis
     for i in range(len(training_examples)):
         if y[i]==0:
             continue
@@ -35,6 +40,7 @@ def main():
                     h[2*(index+1) -1] = 0
                 if instance[index] ==0:
                     h[2*(index+1)-2] = 0
+    # build the output conjunction
     output =""
     for i in range(1, d+1):
         if h[2*i-2]==1:
@@ -72,7 +78,6 @@ def main():
         if y[i] == 1 and y_gag == 0:
             print "kaka"
     #########
-    print h
     print "done"
 
 
